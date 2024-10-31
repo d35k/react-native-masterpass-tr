@@ -12,6 +12,7 @@ const MasterPassContext = React.createContext<IConfig>({
   sendSmsLanguage: '',
   referenceNo: '',
   clientIp: '',
+  macroMerchantId: '',
 });
 
 /* MasterPass Context Provider */

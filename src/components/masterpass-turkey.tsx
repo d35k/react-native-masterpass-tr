@@ -266,6 +266,34 @@ export const MasterPassTurkey = React.forwardRef<
     [injectJS, mfsResponseHandler]
   );
 
+  const handleDirectPurchase = React.useCallback(
+    (purchaseData: any) => {
+      const formData = JSON.stringify(purchaseData);
+      injectJS(`directPurchase(${formData})`);
+
+      return new Promise((resolve, reject) => {
+        EventRegister.addEventListener('directPurchase', (response: any) => {
+          mfsResponseHandler(response, resolve, reject);
+        });
+      });
+    },
+    [injectJS, mfsResponseHandler]
+  );
+
+  const handlePurchaseAndRegister = React.useCallback(
+    (purchaseData: any) => {
+      const formData = JSON.stringify(purchaseData);
+      injectJS(`purchaseAndRegister(${formData})`);
+
+      return new Promise((resolve, reject) => {
+        EventRegister.addEventListener('purchaseAndRegister', (response: any) => {
+          mfsResponseHandler(response, resolve, reject);
+        });
+      });
+    },
+    [injectJS, mfsResponseHandler]
+  );
+
   React.useImperativeHandle(ref, () => {
     return {
       registrationCheck: handleRegistrationCheck,
@@ -277,6 +305,8 @@ export const MasterPassTurkey = React.forwardRef<
       deleteCard: handleDeleteCard,
       linkCardToClient: handleLinkCardToClient,
       purchase: handlePurchase,
+      directPurchase: handleDirectPurchase,
+      purchaseAndRegister: handlePurchaseAndRegister,
     };
   });
 

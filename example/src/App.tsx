@@ -16,6 +16,7 @@ const config: IConfig = {
   sendSms: '',
   referenceNo: '',
   clientIp: '',
+  macroMerchantId: '',
 };
 
 const App: React.FC = () => {

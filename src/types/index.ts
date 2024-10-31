@@ -16,6 +16,7 @@ export interface IConfig {
   sendSms: string;
   referenceNo: string;
   clientIp: string;
+  macroMerchantId: string;
 }
 
 export interface ICardData {
@@ -64,6 +65,27 @@ export interface IPurchaseData {
   paymentType?: string;
 }
 
+export interface IPurchaseAndRegisterData {
+  amount: number | string;
+  orderNo: string;
+  referenceNo?: string;
+  accountAliasName: string;
+  rtaPan: string;
+  expiryDate: string;
+  cvc: string;
+  cardHolderName: string;
+}
+
+export interface IDirectPurchaseData {
+  rtaPan: string;
+  expiryDate: string;
+  cvc: string;
+  cardHolderName: string;
+  amount: number | string;
+  referenceNo?: string;
+  orderNo: string;
+}
+
 export interface IMasterPassTurkeyRefs {
   registrationCheck: () => Promise<any>;
   linkCardToClient: () => Promise<any>;
@@ -74,6 +96,8 @@ export interface IMasterPassTurkeyRefs {
   resendOtp: () => Promise<any>;
   deleteCard: (cardDeleteData: IDeleteCardData) => Promise<any>;
   purchase: (purchaseData: IPurchaseData) => Promise<any>;
+  directPurchase: (purchaseData: IDirectPurchaseData) => Promise<any>;
+  purchaseAndRegister: (purchaseData: IPurchaseAndRegisterData) => Promise<any>;
 }
 
 export interface IMasterPassTurkeyProps {

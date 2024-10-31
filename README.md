@@ -1,6 +1,3 @@
-#  🚧 Deprecation Notice 🚧
-This package is deperecated, you can use [Masterpass SDK](https://github.com/macellan/masterpass-sdk).
-
 # React Native Masterpass TR
 
 Masterpass Turkey Package for React Native

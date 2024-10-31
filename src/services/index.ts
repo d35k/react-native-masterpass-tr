@@ -60,6 +60,9 @@ export const service = ({
     }
 
     function otpVerify(formObject) {
+      MFS.setClientId("${clientId}");
+      MFS.setAddress('${serviceUrl}');
+
       formSetter(formObject, "#otp-form");
 
       MFS.validateTransaction($("#otp-form"), function(status, response) {
@@ -71,6 +74,9 @@ export const service = ({
     }
 
     function mpinVerify(formObject) {
+      MFS.setClientId("${clientId}");
+      MFS.setAddress('${serviceUrl}');
+
       formSetter(formObject, "#mpin-form");
 
       MFS.validateTransaction($("#mpin-form"), function(status, response) {
@@ -82,6 +88,9 @@ export const service = ({
     }
 
     function resendOtp() {
+      MFS.setClientId("${clientId}");
+      MFS.setAddress('${serviceUrl}');
+
       const lastToken = MFS.getLastToken();
 
       MFS.resendOtp(lastToken, '${sendSmsLanguage}', function(status, response) {
@@ -113,6 +122,58 @@ export const service = ({
       MFS.deleteCard($("#delete-form"), function(status, response) {
         returnResponse({
           action: "delete-card",
+          response: response,
+        });
+      });
+    }
+
+    function directPurchase(formObject) {
+      MFS.setClientId("${clientId}");
+      MFS.setAddress('${serviceUrl}');
+
+      const otherFormObject = {};
+
+      Object.keys(formObject).forEach(key => {
+        if (key !== 'additionalData') {
+          otherFormObject[key] = formObject[key];
+        }
+      });
+
+      if (formObject?.additionalData) {
+        MFS.setAdditionalParameters(formObject.additionalData);
+      }
+
+      formSetter(otherFormObject, "#direct-purchase-form");
+
+      MFS.directPurchase($("#direct-purchase-form"), function(status, response) {
+        returnResponse({
+          action: "directPurchase",
+          response: response,
+        });
+      });
+    }
+
+    function purchaseAndRegister(formObject) {
+      MFS.setClientId("${clientId}");
+      MFS.setAddress('${serviceUrl}');
+
+      const otherFormObject = {};
+
+      Object.keys(formObject).forEach(key => {
+        if (key !== 'additionalData') {
+          otherFormObject[key] = formObject[key];
+        }
+      });
+
+      if (formObject?.additionalData) {
+        MFS.setAdditionalParameters(formObject.additionalData);
+      }
+
+      formSetter(otherFormObject, "#purchase-and-register-form");
+
+      MFS.purchaseAndRegister($("#purchase-and-register-form"), function(status, response) {
+        returnResponse({
+          action: "purchaseAndRegister",
           response: response,
         });
       });
